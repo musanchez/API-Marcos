@@ -22,7 +22,13 @@ class ServantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $servant = Servant::create($request->all());
+            return response()->json(['status' => 'success', 'data' => $servant]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+
     }
 
     /**
@@ -30,6 +36,12 @@ class ServantController extends Controller
      */
     public function show(string $id)
     {
+        try {
+            $servant = Servant::findOrFail($id);
+            return response()->json(['status' => 'success', 'data' => $servant]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
         //
     }
 
